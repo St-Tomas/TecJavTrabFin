@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public class Controlador {
-
+public interface Controlador {
+    
     String recurso();
     
     Map<String, Function<Solicitud, String>> acciones();

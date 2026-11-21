@@ -18,7 +18,7 @@ public class Server {
     public <T> void registrarServicio(Class<T> tipo, T servicio){
         servicios.registrar(tipo, servicio);
     }
-    public Servicios gerServicios(){
+    public Servicios getServicios(){
         return servicios;
     }
     public void registrarControlador(Controlador controlador){

@@ -3,6 +3,8 @@ package scaffoldj;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+
+import scaffoldj.Validacion.ValidacionException;
 import scaffoldj.Validacion.Validador;
 import java.util.Optional;
 import java.util.HashMap;
@@ -22,7 +24,7 @@ public class Router {
     
         Rol requerido = c.permisos().get(solicitud.getAccion());
         if (requerido != null){
-            solicitud.getSesion().verificar(requerido);
+            solicitud.getSesion().verificarPermiso(requerido);
         }
 
         List<Validador> reglas = c.validadores().getOrDefault(solicitud.getAccion(), List.of());
@@ -30,7 +32,7 @@ public class Router {
             throw new ValidacionException("Cantida de parametros incorrecta. Se esperaban " + reglas.size() + "y se recibieron " + solicitud.getParametros().size());
         }
         for (int i = 0; i < reglas.size(); i++) {
-            reglas.get(i).validar(solicitud.getParametros(i), "param" + (i + 1));
+            reglas.get(i).validar(solicitud.getParametro(i), "param" + (i + 1));
         }
         return accion.apply(solicitud);
     }
